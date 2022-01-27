@@ -4,6 +4,8 @@ set -x
 UPSTREAM=$1
 LOCAL_BRANCH=$2
 
+echo ${GITHUB_REPOSITORY}
+
 REMOTE_NAME=upstream-${LOCAL_BRANCH}
 git remote add ${REMOTE_NAME} ${UPSTREAM}
 git fetch origin ${LOCAL_BRANCH}:${LOCAL_BRANCH} || exit 1
