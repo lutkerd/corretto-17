@@ -56,7 +56,7 @@ task configureBuild(type: Exec) {
 task executeBuild(type: Exec) {
     dependsOn configureBuild
     workingDir buildRoot
-    outputs.dir("/build/${project.jdkImageName}/images")
+    outputs.dir(layout.buildDirectory.dir("/build/${project.jdkImageName}/images"))
 
     commandLine 'make', 'clean', 'images', 'test-image'
 }
@@ -64,7 +64,7 @@ task executeBuild(type: Exec) {
 task copyImage(type: Copy) {
     dependsOn executeBuild
 
-    from "${executeBuild.workingDir}/build/${project.jdkImageName}/images"
+    from executeBuild.getOutputs().getFiles().getSingleFile()
     into "$buildRoot/build"
 }
 
